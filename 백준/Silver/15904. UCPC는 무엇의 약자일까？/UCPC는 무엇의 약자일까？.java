@@ -12,6 +12,8 @@ public class Main {
 			if (!(str[i] >= 'A' && str[i] <= 'Z') || str[i] != ucpc[cnt])
 				continue;
 			cnt++;
+			if (cnt == 4)
+				break;
 		}
 		if (cnt != 4)
 			System.out.println("I hate UCPC");
