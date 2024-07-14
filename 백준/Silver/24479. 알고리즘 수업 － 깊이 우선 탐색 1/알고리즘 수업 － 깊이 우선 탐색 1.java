@@ -1,12 +1,14 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.PriorityQueue;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
 
-	static PriorityQueue<Integer>[] adjList;
+	static List<Integer>[] adjList;
 	static int seq = 1;
 	static int[] vt;
 
@@ -18,9 +20,9 @@ public class Main {
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
 		R = Integer.parseInt(st.nextToken());
-		adjList = new PriorityQueue[N + 1];
+		adjList = new ArrayList[N + 1];
 		for (int i = 1; i <= N; i++)
-			adjList[i] = new PriorityQueue<>();
+			adjList[i] = new ArrayList<>();
 		vt = new int[N + 1];
 		while (--M >= 0) {
 			st = new StringTokenizer(br.readLine());
@@ -29,6 +31,8 @@ public class Main {
 			adjList[u].add(v);
 			adjList[v].add(u);
 		}
+		for (int i = 1; i <= N; i++)
+			Collections.sort(adjList[i]);
 		dfs(R);
 		for (int i = 1; i <= N; i++)
 			sb.append(vt[i]).append("\n");
@@ -39,7 +43,7 @@ public class Main {
 		if (vt[v] != 0)
 			return;
 		vt[v] = seq++;
-		while (!adjList[v].isEmpty())
-			dfs(adjList[v].poll());
+		for (int i = 0; i < adjList[v].size(); i++)
+			dfs(adjList[v].get(i));
 	}
 }
