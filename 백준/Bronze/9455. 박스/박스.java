@@ -20,7 +20,7 @@ public class Main {
 			for (int i = 0; i < N; i++) {
 				st = new StringTokenizer(br.readLine());
 				for (int j = 0; j < M; j++) {
-					if (Integer.parseInt(st.nextToken()) == 0)
+					if (st.nextToken().equals("0"))
 						continue;
 					++cnt[j][0];
 					cnt[j][1] += N - i - 1;
