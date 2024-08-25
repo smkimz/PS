@@ -9,7 +9,7 @@ public class Main {
 		int N = Integer.parseInt(br.readLine()), num = 665;
 		while (N > 0) {
 			++num;
-			if (String.valueOf(num).contains("666"))
+			if (Integer.toString(num).contains("666"))
 				--N;
 		}
 		System.out.println(num);
