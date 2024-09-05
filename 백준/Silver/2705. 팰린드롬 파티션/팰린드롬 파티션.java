@@ -18,6 +18,7 @@ public class Main {
 					for (int j = 1; j <= i / 2; j++)
 						memo[i] += memo[j];
 				}
+				max = N;
 			}
 			sb.append(memo[N]).append("\n");
 		}
