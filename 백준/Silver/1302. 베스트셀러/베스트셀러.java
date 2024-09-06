@@ -7,24 +7,17 @@ public class Main {
 
 	public static void main(String args[]) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		HashMap<String, Integer> hm = new HashMap<String, Integer>();
-		int N = Integer.parseInt(br.readLine()), val, maxVal = 0;
-		String book = "", maxBookName = "-";
+		HashMap<String, Integer> soldBooks = new HashMap<String, Integer>();
+		int N = Integer.parseInt(br.readLine()), soldCount, maxSoldCount = 0;
+		String bookName, maxBookName = "";
 		while (--N >= 0) {
-			book = br.readLine();
-			if (hm.getOrDefault(book, -1) == -1)
-				hm.put(book, 1);
-			else
-				hm.put(book, hm.get(book) + 1);
-			val = hm.get(book);
-			if (val == maxVal) {
-				if (maxBookName != "-" && book.compareTo(maxBookName) >= 0)
-					continue;
-				maxBookName = book;
-			} else if (val > maxVal) {
-				maxBookName = book;
-				maxVal = val;
-			}
+			bookName = br.readLine();
+			soldBooks.put(bookName, soldBooks.getOrDefault(bookName, 0) + 1);
+			soldCount = soldBooks.get(bookName);
+			if (soldCount < maxSoldCount || (soldCount == maxSoldCount && bookName.compareTo(maxBookName) >= 0))
+				continue;
+			maxBookName = bookName;
+			maxSoldCount = soldCount;
 		}
 		System.out.print(maxBookName);
 	}
