@@ -20,16 +20,13 @@ public class Main {
 					stack.add(str[i]);
 					continue;
 				} else if (str[i] == ')' || str[i] == ']') {
-					if (stack.isEmpty()) {
+					if (stack.isEmpty() || (str[i] == ')' && stack.peekLast() != '(')
+							|| (str[i] == ']' && stack.peekLast() != '[')) {
 						sb.append("no").append("\n");
+						stack.clear();
 						continue p;
 					}
-					if ((str[i] == ')' && stack.peekLast() == '(') || (str[i] == ']' && stack.peekLast() == '[')) {
-						stack.pollLast();
-						continue;
-					}
-					stack.add(str[i]);
-					continue;
+					stack.pollLast();
 				}
 			}
 
