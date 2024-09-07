@@ -13,6 +13,8 @@ public class Main {
 		char[] str;
 		while (--N >= 0) {
 			str = br.readLine().toCharArray();
+			if (str.length % 2 == 1)
+				continue;
 			for (int i = 0; i < str.length; i++) {
 				if (stack.isEmpty() || str[i] != stack.peekLast())
 					stack.add(str[i]);
