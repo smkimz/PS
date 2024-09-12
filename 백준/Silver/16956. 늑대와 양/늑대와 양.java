@@ -27,7 +27,7 @@ public class Main {
 		for (int i = 0; i < R; i++) {
 			map[i] = br.readLine().toCharArray();
 			for (int j = 0; j < C; j++) {
-				if (map[i][j] == 'S')
+				if (map[i][j] == 'W')
 					dq.add(new Sheep(i, j));
 			}
 		}
@@ -47,9 +47,9 @@ public class Main {
 				if (dr < 0 || dr > R - 1 || dc < 0 || dc > C - 1)
 					continue;
 				c = map[dr][dc];
-				if (c == 'S' || c == 'D')
+				if (c == 'W' || c == 'D')
 					continue;
-				if (c == 'W') {
+				if (c == 'S') {
 					System.out.println(0);
 					return;
 				}
