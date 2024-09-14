@@ -22,7 +22,7 @@ public class Main {
 					continue;
 				idxA = 0;
 				idxB = 0;
-				while (idxA < substr.length) {
+				while (true) {
 					if (substr[idxA++] != S[idxB])
 						break;
 					if (++idxB < S.length)
