@@ -7,18 +7,29 @@ public class Main {
 
 	public static void main(String args[]) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		st = new StringTokenizer(br.readLine());
-		int[] start = { Integer.parseInt(st.nextToken()) % 2, Integer.parseInt(st.nextToken()) % 2 };
-		st = new StringTokenizer(br.readLine());
-		int[] end = { Integer.parseInt(st.nextToken()) % 2, Integer.parseInt(st.nextToken()) % 2 };
-		if (start[0] == end[0]) {
-			if (start[1] == end[1])
+		int[][] loc = new int[3][2];
+		StringTokenizer st;
+		for (int i = 0; i <= 2; i++) {
+			st = new StringTokenizer(br.readLine());
+			loc[i][0] = Integer.parseInt(st.nextToken());
+			loc[i][1] = Integer.parseInt(st.nextToken());
+		}
+
+		if (loc[0][0] == 1 || loc[0][1] == 1) {
+			if (loc[1][0] == loc[2][0] && loc[1][1] == loc[2][1])
+				System.out.println("YES");
+			else
+				System.out.println("NO");
+			return;
+		}
+
+		if (loc[1][0] % 2 == loc[2][0] % 2) {
+			if (loc[1][1] % 2 == loc[2][1] % 2)
 				System.out.println("YES");
 			else
 				System.out.println("NO");
 		} else {
-			if (start[1] != end[1])
+			if (loc[1][1] % 2 != loc[2][1] % 2)
 				System.out.println("YES");
 			else
 				System.out.println("NO");
