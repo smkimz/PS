@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -10,26 +9,31 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder("<");
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken()), K = Integer.parseInt(st.nextToken()), count = 0, element;
-		ArrayDeque<Integer> queue = new ArrayDeque<>();
-		for (int i = 1; i <= N; i++) {
-			if (++count == K) {
-				sb.append(i).append(", ");
-				count = 0;
+		int N = Integer.parseInt(st.nextToken());
+		int K = Integer.parseInt(st.nextToken());
+		int out = 0, cnt = K, seq = K;
+		boolean[] check = new boolean[N + 1];
+		while (out < N) {
+			if (seq > N)
+				seq = 1;
+			if (check[seq]) {
+				seq++;
 				continue;
 			}
-			queue.add(i);
-		}
-		while (!queue.isEmpty()) {
-			element = queue.poll();
-			if (++count == K) {
-				sb.append(element).append(", ");
-				count = 0;
+			if (cnt == K) {
+				sb.append(seq);
+				check[seq] = true;
+				cnt = 1;
+				seq++;
+				out++;
+				if (out < N)
+					sb.append(", ");
 				continue;
 			}
-			queue.add(element);
+			cnt++;
+			seq++;
 		}
-		sb.delete(sb.length() - 2, sb.length()).append(">");
+		sb.append(">");
 		System.out.println(sb);
 	}
 }
