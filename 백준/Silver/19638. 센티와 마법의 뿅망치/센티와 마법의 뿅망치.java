@@ -16,14 +16,8 @@ public class Main {
 		PriorityQueue<Integer> pqueue = new PriorityQueue<>(Collections.reverseOrder());
 		while (--N >= 0)
 			pqueue.add(Integer.parseInt(br.readLine()));
-		while (pqueue.peek() >= H && --t >= 0) {
+		while (pqueue.peek() >= H && pqueue.peek() != 1 && --t >= 0)
 			pqueue.add((int) Math.floor(pqueue.poll() / 2));
-			if (pqueue.peek() >= H)
-				continue;
-			if (pqueue.peek() <= 1)
-				pqueue.add(1);
-			break;
-		}
 		if (pqueue.peek() < H)
 			sb.append("YES\n").append(T - t);
 		else
