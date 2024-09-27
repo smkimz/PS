@@ -46,11 +46,11 @@ public class Main {
 	static void kruskal() {
 		Edge edge;
 		int ans = 0, selectedEdgeCount = 0, px, py;
-		while (!pqueue.isEmpty()) {
+		while (!pqueue.isEmpty() && selectedEdgeCount < N - 1) {
 			edge = pqueue.poll();
 			px = findSet(edge.start);
 			py = findSet(edge.end);
-			if (px != py && selectedEdgeCount < N - 1) {
+			if (px != py) {
 				parent[Math.max(px, py)] = Math.min(px, py);
 				ans += edge.cost;
 				++selectedEdgeCount;
