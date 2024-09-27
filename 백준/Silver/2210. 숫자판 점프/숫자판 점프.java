@@ -6,31 +6,30 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	static char[][] board = new char[5][5];
-	static HashMap<String, Boolean> checker = new HashMap<>();
-	static int[][] dt = { { 0, 1, 0, -1 }, { 1, 0, -1, 0 } };
+	static int[][] board = new int[5][5], dt = { { 0, 1, 0, -1 }, { 1, 0, -1, 0 } };
+	static HashMap<Integer, Boolean> checker = new HashMap<>();
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		board = new char[5][5];
+		board = new int[5][5];
 		StringTokenizer st;
 		for (int i = 0; i < 5; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < 5; j++)
-				board[i][j] = st.nextToken().charAt(0);
+				board[i][j] = Integer.parseInt(st.nextToken());
 		}
 
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
-				checkBoard(i, j, 0, "");
+				checkBoard(i, j, 0, 0);
 			}
 		}
 
 		System.out.println(checker.size());
 	}
 
-	static void checkBoard(int row, int col, int depth, String num) {
-		num += board[row][col];
+	static void checkBoard(int row, int col, int depth, int num) {
+		num = num * 10 + board[row][col];
 		if (depth == 5) {
 			checker.put(num, true);
 			return;
