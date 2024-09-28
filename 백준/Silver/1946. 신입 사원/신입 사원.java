@@ -16,8 +16,6 @@ public class Main {
 
 		@Override
 		public int compareTo(Main.Employee o) {
-			if (this.A == o.A)
-				return Integer.compare(o.B, this.B);
 			return Integer.compare(this.A, o.A);
 		}
 	}
