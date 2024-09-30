@@ -50,10 +50,9 @@ public class Main {
 		Node node;
 		while (!queue.isEmpty()) {
 			node = queue.poll();
-			if (node.dist >= dist) {
-				if (node.dist > dist)
-					break;
+			if (node.dist == dist) {
 				ans.add(node.num);
+				continue;
 			}
 			for (int n : adjList[node.num]) {
 				if (visited[n])
@@ -62,7 +61,6 @@ public class Main {
 				visited[n] = true;
 			}
 		}
-
 		if (ans.isEmpty())
 			sb.append(-1);
 		else {
