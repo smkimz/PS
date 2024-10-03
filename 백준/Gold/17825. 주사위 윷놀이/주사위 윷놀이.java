@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -20,25 +19,14 @@ public class Main {
 	static int[] move = new int[MOVECOUNT];
 	static int[] position = new int[MEEPLE];
 	static int ans = 0;
-	static ArrayList<Integer>[] adjList;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < MOVECOUNT; i++)
 			move[i] = Integer.parseInt(st.nextToken());
-		init();
 		checkMovement(0, 0);
 		System.out.println(ans);
-	}
-
-	private static void init() {
-		adjList = new ArrayList[END];
-		for (int i = 0; i < END; i++) {
-			adjList[i] = new ArrayList<Integer>();
-			for (int j = 0; j < MAXMOVE; j++)
-				adjList[i].add(ADJNODES[i][j]);
-		}
 	}
 
 	private static void checkMovement(int turn, int score) {
@@ -46,17 +34,17 @@ public class Main {
 			ans = Math.max(ans, score);
 			return;
 		}
-		int pos, prevPos;
+		int nextPos, pos;
 		for (int i = 0; i < MEEPLE; i++) {
 			if (position[i] == END)
 				continue;
-			pos = adjList[position[i]].get(move[turn] - 1);
-			if (isSameNode(i, pos))
+			pos = position[i];
+			nextPos = ADJNODES[pos][move[turn] - 1];
+			if (isSameNode(i, nextPos))
 				continue;
-			prevPos = position[i];
-			position[i] = pos;
+			position[i] = nextPos;
 			checkMovement(turn + 1, score + SCORES[position[i]]);
-			position[i] = prevPos;
+			position[i] = pos;
 		}
 	}
 
