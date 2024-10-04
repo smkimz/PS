@@ -21,13 +21,13 @@ public class Main {
 			if (dp[idx] < arr[i])
 				dp[++idx] = arr[i];
 			else
-				dp[searchIndex(dp, arr[i], N)] = arr[i];
+				dp[searchIndex(dp, arr[i], idx)] = arr[i];
 		}
 		System.out.println(idx + 1);
 	}
 
-	private static int searchIndex(int[] dp, int val, int size) {
-		int start = 0, end = size - 1;
+	private static int searchIndex(int[] dp, int val, int end) {
+		int start = 0;
 		while (start <= end) {
 			int mid = (start + end) / 2;
 			if (dp[mid] > val)
