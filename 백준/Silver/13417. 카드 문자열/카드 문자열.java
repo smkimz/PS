@@ -11,13 +11,13 @@ public class Main {
 		StringBuilder sb = new StringBuilder();
 		StringTokenizer st;
 		ArrayDeque<Character> deque = new ArrayDeque<>();
-		int T = Integer.parseInt(br.readLine());
+		int T = Integer.parseInt(br.readLine()), N;
 		char c;
-		while (T-- > 0) {
-			br.readLine();
+		while (--T >= 0) {
+			N = Integer.parseInt(br.readLine()) - 1;
 			st = new StringTokenizer(br.readLine());
 			deque.add(st.nextToken().charAt(0));
-			while (st.hasMoreTokens()) {
+			while (--N >= 0) {
 				c = st.nextToken().charAt(0);
 				if (c <= deque.peekFirst())
 					deque.addFirst(c);
