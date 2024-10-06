@@ -9,7 +9,7 @@ public class Main {
 		char[] S = br.readLine().toCharArray(), T = br.readLine().toCharArray();
 		int start = 0, end = T.length - 1;
 		boolean isStart = false;
-		while (end - start + 1 != S.length) {
+		while (end - start >= S.length) {
 			if (!isStart) {
 				if (T[end] == 'B')
 					isStart = true;
