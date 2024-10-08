@@ -3,95 +3,81 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int N, M, R, ans;
-	static int[] item, distance;
-	static boolean[] visited;
 
-	static class Map implements Comparable<Map> {
+	static int N, M;
+	static int[] items;
+	static ArrayList<Node>[] adjList;
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+		int R = Integer.parseInt(st.nextToken()), a, b, l, ans = 0;
+		items = new int[N + 1];
+		adjList = new ArrayList[N + 1];
+		st = new StringTokenizer(br.readLine());
+		for (int i = 1; i <= N; i++) {
+			items[i] = Integer.parseInt(st.nextToken());
+			adjList[i] = new ArrayList<>();
+		}
+		while (--R >= 0) {
+			st = new StringTokenizer(br.readLine());
+			a = Integer.parseInt(st.nextToken());
+			b = Integer.parseInt(st.nextToken());
+			l = Integer.parseInt(st.nextToken());
+			adjList[a].add(new Node(b, l));
+			adjList[b].add(new Node(a, l));
+		}
+		for (int i = 1; i <= N; i++)
+			ans = Math.max(ans, dijkstra(i));
+		System.out.println(ans);
+	}
+
+	static int dijkstra(int start) {
+		PriorityQueue<Node> pqueue = new PriorityQueue<>();
+		pqueue.add(new Node(start, 0));
+		int[] distances = new int[N + 1];
+		Arrays.fill(distances, Integer.MAX_VALUE);
+		distances[start] = 0;
+		boolean[] visited = new boolean[N + 1];
+		Node node;
+		while (!pqueue.isEmpty()) {
+			node = pqueue.poll();
+			if (visited[node.area])
+				continue;
+			visited[node.area] = true;
+			for (Node n : adjList[node.area]) {
+				if (distances[n.area] <= distances[node.area] + n.dist)
+					continue;
+				distances[n.area] = distances[node.area] + n.dist;
+				pqueue.add(new Node(n.area, distances[n.area]));
+			}
+		}
+		int totalItem = 0;
+		for (int i = 1; i <= N; i++) {
+			if (distances[i] > M)
+				continue;
+			totalItem += items[i];
+		}
+		return totalItem;
+	}
+
+	static class Node implements Comparable<Node> {
 		int area, dist;
 
-		public Map(int area, int dist) {
+		public Node(int area, int dist) {
 			this.area = area;
 			this.dist = dist;
 		}
 
 		@Override
-		public int compareTo(Map o) {
+		public int compareTo(Node o) {
 			return Integer.compare(this.dist, o.dist);
 		}
-	}
-
-	static List<Map>[] adjList;
-	static PriorityQueue<Map> pqueue;
-
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
-
-		st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		R = Integer.parseInt(st.nextToken());
-
-		item = new int[N];
-		st = new StringTokenizer(br.readLine());
-		for (int i = 0; i < N; i++)
-			item[i] = Integer.parseInt(st.nextToken());
-
-		adjList = new ArrayList[N];
-		for (int i = 0; i < N; i++)
-			adjList[i] = new ArrayList<>();
-
-		for (int i = 0; i < R; i++) {
-			st = new StringTokenizer(br.readLine());
-			int start = Integer.parseInt(st.nextToken()) - 1;
-			int end = Integer.parseInt(st.nextToken()) - 1;
-			int dist = Integer.parseInt(st.nextToken());
-			adjList[start].add(new Map(end, dist));
-			adjList[end].add(new Map(start, dist));
-		}
-		ans = 0;
-		for (int i = 0; i < N; i++)
-			dijkstra(i);
-
-		System.out.println(ans);
-	}
-
-	private static void dijkstra(int startArea) {
-		pqueue = new PriorityQueue<>();
-		pqueue.add(new Map(startArea, 0));
-
-		distance = new int[N];
-		Arrays.fill(distance, 10000);
-		distance[startArea] = 0;
-
-		visited = new boolean[N];
-
-		while (!pqueue.isEmpty()) {
-			Map map = pqueue.poll();
-
-			if (visited[map.area])
-				continue;
-			visited[map.area] = true;
-
-			for (Map m : adjList[map.area]) {
-				if (distance[m.area] > distance[map.area] + m.dist) {
-					distance[m.area] = distance[map.area] + m.dist;
-					pqueue.add(new Map(m.area, distance[m.area]));
-				}
-			}
-		}
-
-		int totalItem = 0;
-		for (int i = 0; i < N; i++) {
-			if (distance[i] <= M)
-				totalItem += item[i];
-		}
-		ans = Math.max(ans, totalItem);
 	}
 }
