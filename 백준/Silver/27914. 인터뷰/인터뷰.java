@@ -10,8 +10,9 @@ public class Main {
 		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int N = Integer.parseInt(st.nextToken()), K = Integer.parseInt(st.nextToken()),
-				Q = Integer.parseInt(st.nextToken()), a, x = 0;
-		int[] A = new int[N + 1];
+				Q = Integer.parseInt(st.nextToken()), a;
+		long x = 0;
+		long[] A = new long[N + 1];
 		st = new StringTokenizer(br.readLine());
 		for (int i = 1; i <= N; i++) {
 			a = Integer.parseInt(st.nextToken());
