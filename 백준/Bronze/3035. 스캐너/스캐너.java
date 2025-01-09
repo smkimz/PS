@@ -7,23 +7,22 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
+		StringBuilder res = new StringBuilder(), sb;
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int R = Integer.parseInt(st.nextToken()), C = Integer.parseInt(st.nextToken()),
 				ZR = Integer.parseInt(st.nextToken()), ZC = Integer.parseInt(st.nextToken());
 		char[] newspaper;
-		String result;
 		for (int i = 0; i < R; i++) {
 			newspaper = br.readLine().toCharArray();
-			result = "";
+			sb = new StringBuilder();
 			for (int j = 0; j < C; j++) {
-				result += newspaper[j];
+				sb.append(newspaper[j]);
 				for (int k = 1; k < ZC; k++)
-					result += newspaper[j];
+					sb.append(newspaper[j]);
 			}
 			for (int j = 0; j < ZR; j++)
-				sb.append(result).append("\n");
+				res.append(sb).append("\n");
 		}
-		System.out.print(sb);
+		System.out.print(res);
 	}
 }
