@@ -17,9 +17,6 @@ public class Main {
 			x = y;
 			++ans;
 		}
-		if (ans == 1 && x % 2 == 0)
-			System.out.println(0);
-		else
-			System.out.println(ans);
+		System.out.println(ans);
 	}
 }
