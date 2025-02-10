@@ -1,43 +1,39 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int T = Integer.parseInt(br.readLine()), l, c;
 		StringBuilder sb = new StringBuilder();
-		LinkedList<Character> password;
+		int T = Integer.parseInt(br.readLine());
+		ArrayDeque<Character> stackA, stackB;
 		char[] keylog;
 		while (--T >= 0) {
-			password = new LinkedList<>();
 			keylog = br.readLine().toCharArray();
-			l = 0;
-			c = 0;
+			stackA = new ArrayDeque<>();
+			stackB = new ArrayDeque<>();
 			for (int i = 0; i < keylog.length; i++) {
 				if (keylog[i] == '<') {
-					if (c == 0)
+					if (stackA.isEmpty())
 						continue;
-					--c;
+					stackB.add(stackA.removeLast());
 				} else if (keylog[i] == '>') {
-					if (c == l)
+					if (stackB.isEmpty())
 						continue;
-					++c;
+					stackA.add(stackB.removeLast());
 				} else if (keylog[i] == '-') {
-					if (l == 0 || c == 0)
+					if (stackA.isEmpty())
 						continue;
-					password.remove(c - 1);
-					--c;
-					--l;
-				} else {
-					password.add(c, keylog[i]);
-					++c;
-					++l;
-				}
+					stackA.removeLast();
+				} else
+					stackA.add(keylog[i]);
 			}
-			for (char p : password)
-				sb.append(p);
+			while (!stackA.isEmpty())
+				sb.append(stackA.poll());
+			while (!stackB.isEmpty())
+				sb.append(stackB.pollLast());
 			sb.append("\n");
 		}
 		System.out.print(sb);
