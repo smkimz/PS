@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -16,9 +15,9 @@ public class Main {
 		st = new StringTokenizer(br.readLine());
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
-		ArrayList<Integer>[] isConnected = new ArrayList[N + 1];
+		ArrayDeque<Integer>[] isConnected = new ArrayDeque[N + 1];
 		for (int i = 1; i <= N; i++)
-			isConnected[i] = new ArrayList<>();
+			isConnected[i] = new ArrayDeque<>();
 		while (--M >= 0) {
 			st = new StringTokenizer(br.readLine());
 			x = Integer.parseInt(st.nextToken());
@@ -37,8 +36,8 @@ public class Main {
 				System.out.println(node.count);
 				return;
 			}
-			for (int i = 0; i < isConnected[node.str].size(); i++) {
-				next = isConnected[node.str].get(i);
+			while (!isConnected[node.str].isEmpty()) {
+				next = isConnected[node.str].poll();
 				if (isVisited[next])
 					continue;
 				queue.add(new Node(next, node.count + 1));
