@@ -33,7 +33,7 @@ public class Main {
 			for (int i = 1; i <= n; i++) {
 				S = Math.pow(scores[i][0], 2);
 				A = Math.pow(scores[i][1], 2);
-				if (S + A == 0)
+				if (S == 0 && A == 0)
 					W = 0;
 				else
 					W = S / (S + A);
